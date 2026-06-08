@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "system_variables": {
+    "age":              {"var_kind": "system", "description": "Participant current age (derived from DOB)"},
+    "yob":              {"var_kind": "system", "description": "Year of birth"},
+    "Current Year":     {"var_kind": "system", "description": "Current calendar year at survey time"},
+    "Today date":       {"var_kind": "system", "description": "Current date at survey time"},
+    "participant name": {"var_kind": "system", "description": "Participant name from enrollment (PII)"}
+  },
+  "modules": {},
+  "variables": {}
+}

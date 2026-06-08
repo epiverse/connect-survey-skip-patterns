@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.0.0",
+  "module": {
+    "id": "fixture_valid",
+    "title": "Fixture: valid sample module",
+    "survey_family": "fixture",
+    "source_file": "tests/fixtures/valid_sample.json",
+    "naming_convention": "short_uppercase",
+    "id_prefixes": [],
+    "stated_question_count": 3,
+    "counted_question_count": 3,
+    "count_reconciliation": "3 bullet questions == 3 question items.",
+    "response_code_legend": {"55": "Other (free text)", "99": "Prefer not to answer", "NR": "No response"},
+    "sections": [
+      {"id": "SECTION1", "title": "Sample", "order": 1, "item_id_first": "Q1", "item_id_last": "Q3"}
+    ],
+    "external_variables": [
+      {"name": "age", "var_kind": "system", "description": "Participant current age"},
+      {"name": "participant name", "var_kind": "system", "description": "Name from enrollment"}
+    ]
+  },
+  "items": [
+    {
+      "id": "Q1",
+      "kind": "question",
+      "section": "SECTION1",
+      "order_index": 0,
+      "bullet": true,
+      "text": "Which of these describe you? Select all that apply.",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "multi_select",
+        "select_all": true,
+        "exclusive_codes": [],
+        "options": [
+          {"code": "0", "label": "Group A", "flags": []},
+          {"code": "1", "label": "Group B", "flags": []},
+          {"code": "55", "label": "None of these: please describe", "flags": ["is_other", "has_textbox"]},
+          {"code": "99", "label": "Prefer not to answer", "flags": ["is_refused"],
+           "route": {"target": "END", "kind": "goto", "raw": "99 Prefer not to answer --> GO TO END"}}
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "Q2",
+        "no_response_route": {"target": "END", "kind": "goto", "raw": "NO RESPONSE --> GO TO END"},
+        "terminal": null
+      },
+      "membership": {"repeated_group": null, "grid": null, "iteration_role": null},
+      "provenance": {"file": "valid_sample", "line_start": 1, "line_end": 8, "raw_excerpt": "[Q1] Which of these..."},
+      "flags": {"needs_review": false, "schema_breaker": null, "notes": []}
+    },
+    {
+      "id": "Q2",
+      "kind": "question",
+      "section": "SECTION1",
+      "order_index": 1,
+      "bullet": true,
+      "text": "You selected Group A — tell us more, [insert participant name].",
+      "piped_refs": [
+        {"var": "participant name", "var_kind": "system", "raw": "[insert participant name]"}
+      ],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {"code": "0", "label": "No", "flags": []},
+          {"code": "1", "label": "Yes", "flags": []}
+        ]
+      },
+      "display_condition": {
+        "raw": "[DISPLAY Q2 IF 0 SELECTED AT Q1]",
+        "parsed": {"op": "selected", "var": "Q1", "values": [0], "quantifier": "any"},
+        "confidence": "high",
+        "needs_review": false,
+        "interpretation_note": null,
+        "else_route": null
+      },
+      "routing": {"default_next": "Q3", "no_response_route": null, "terminal": null},
+      "membership": {"repeated_group": "loop_q2", "grid": null, "iteration_role": null},
+      "provenance": {"file": "valid_sample", "line_start": 9, "line_end": 14, "raw_excerpt": "[Q2] ..."},
+      "flags": {"needs_review": false, "schema_breaker": null, "notes": []}
+    },
+    {
+      "id": "Q3",
+      "kind": "question",
+      "section": "SECTION1",
+      "order_index": 2,
+      "bullet": true,
+      "text": "How old were you?",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "integer",
+        "range_check": {
+          "raw": "[RANGE CHECK: min= 0, max= age]",
+          "min": {"kind": "const", "value": 0},
+          "max": {"kind": "system_var", "var": "age"},
+          "needs_review": false
+        }
+      },
+      "display_condition": null,
+      "routing": {"default_next": "END", "no_response_route": null, "terminal": null},
+      "membership": {"repeated_group": null, "grid": null, "iteration_role": null},
+      "provenance": {"file": "valid_sample", "line_start": 15, "line_end": 18, "raw_excerpt": "[Q3] How old..."},
+      "flags": {"needs_review": false, "schema_breaker": null, "notes": []}
+    },
+    {
+      "id": "END",
+      "kind": "terminal",
+      "section": "SECTION1",
+      "order_index": 3,
+      "bullet": false,
+      "text": "Thank you, you have completed this survey.",
+      "response": null,
+      "display_condition": null,
+      "routing": {
+        "default_next": null,
+        "no_response_route": null,
+        "terminal": {"type": "end_module", "id": null, "message": "End of module.", "exit_behavior": null, "condition": null}
+      },
+      "membership": {"repeated_group": null, "grid": null, "iteration_role": null},
+      "provenance": {"file": "valid_sample", "line_start": 19, "line_end": 19, "raw_excerpt": "END OF MODULE"},
+      "flags": {"needs_review": false, "schema_breaker": null, "notes": []}
+    }
+  ],
+  "repeated_groups": [
+    {
+      "group_id": "loop_q2",
+      "type": "per_selected_option",
+      "label": "Per Group-A selection follow-up",
+      "controller": null,
+      "domain_source": "Q1",
+      "index_pipe_token": null,
+      "ordinal_fill": null,
+      "template_item_ids": ["Q2"],
+      "per_iteration_rules": [],
+      "summary_item": null,
+      "instances": null,
+      "provenance": {"file": "valid_sample", "line_start": 9, "line_end": 14, "raw_excerpt": "[DISPLAY Q2 FOR EACH ... SELECTED AT Q1]"}
+    }
+  ],
+  "grids": [],
+  "dependency_index": {},
+  "build_meta": {
+    "built_by": "fixture",
+    "extraction_cmd": "n/a (hand-authored fixture)",
+    "open_questions": []
+  }
+}

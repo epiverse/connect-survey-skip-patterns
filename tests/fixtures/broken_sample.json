@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "module": {
+    "id": "fixture_broken",
+    "title": "Fixture: deliberately broken sample (5 defect classes)",
+    "survey_family": "fixture",
+    "source_file": "tests/fixtures/broken_sample.json",
+    "naming_convention": "short_uppercase",
+    "id_prefixes": [],
+    "stated_question_count": 4,
+    "counted_question_count": 4,
+    "count_reconciliation": "4 question items (incl. the deliberate duplicate).",
+    "response_code_legend": {"99": "Prefer not to answer", "NR": "No response"},
+    "sections": [{"id": "SECTION1", "title": "Sample", "order": 1}],
+    "external_variables": [
+      {"name": "age", "var_kind": "system"},
+      {"name": "participant name", "var_kind": "system"}
+    ]
+  },
+  "items": [
+    {
+      "id": "Q1",
+      "kind": "question",
+      "order_index": 0,
+      "bullet": true,
+      "text": "Defect 2: default_next points to a nonexistent item.",
+      "response": {"type": "single_select", "options": [{"code": "0", "label": "No"}, {"code": "1", "label": "Yes"}]},
+      "routing": {"default_next": "NOPE", "no_response_route": {"target": "END", "raw": "NR --> GO TO END"}, "terminal": null},
+      "provenance": {"file": "broken_sample", "line_start": 1, "line_end": 3, "raw_excerpt": "[Q1] ..."}
+    },
+    {
+      "id": "Q1",
+      "kind": "question",
+      "order_index": 1,
+      "bullet": true,
+      "text": "Defect 1: duplicate id Q1.",
+      "response": {"type": "single_select", "options": [{"code": "0", "label": "No"}, {"code": "1", "label": "Yes"}]},
+      "routing": {"default_next": "Q2", "no_response_route": null, "terminal": null},
+      "provenance": {"file": "broken_sample", "line_start": 4, "line_end": 6, "raw_excerpt": "[Q1] duplicate ..."}
+    },
+    {
+      "id": "Q2",
+      "kind": "question",
+      "order_index": 2,
+      "bullet": true,
+      "text": "Defects 3 + 4: low-confidence wrapper with null interpretation_note, and an unknown variable.",
+      "response": {"type": "single_select", "options": [{"code": "0", "label": "No"}, {"code": "1", "label": "Yes"}]},
+      "display_condition": {
+        "raw": "[DISPLAY Q2 IF 0 SELECTED AT GHOST]",
+        "parsed": {"op": "selected", "var": "GHOST", "values": [0], "quantifier": "any"},
+        "confidence": "low",
+        "needs_review": false,
+        "interpretation_note": null,
+        "else_route": null
+      },
+      "routing": {"default_next": "Q3", "no_response_route": null, "terminal": null},
+      "provenance": {"file": "broken_sample", "line_start": 7, "line_end": 10, "raw_excerpt": "[Q2] ..."}
+    },
+    {
+      "id": "Q3",
+      "kind": "question",
+      "order_index": 3,
+      "bullet": true,
+      "text": "Defect 5: raw-op wrapper with needs_review=false.",
+      "response": {"type": "integer"},
+      "display_condition": {
+        "raw": "[DISPLAY IF (some unparseable mess]",
+        "parsed": {"op": "raw", "text": "(some unparseable mess"},
+        "confidence": "low",
+        "needs_review": false,
+        "interpretation_note": "Could not parse; left as raw.",
+        "else_route": null
+      },
+      "routing": {"default_next": "END", "no_response_route": null, "terminal": null},
+      "provenance": {"file": "broken_sample", "line_start": 11, "line_end": 13, "raw_excerpt": "[Q3] ..."}
+    },
+    {
+      "id": "END",
+      "kind": "terminal",
+      "order_index": 4,
+      "bullet": false,
+      "text": "End.",
+      "response": null,
+      "routing": {"default_next": null, "no_response_route": null, "terminal": {"type": "end_module"}},
+      "provenance": {"file": "broken_sample", "line_start": 14, "line_end": 14, "raw_excerpt": "END"}
+    }
+  ],
+  "repeated_groups": [],
+  "grids": [],
+  "dependency_index": {},
+  "build_meta": {"built_by": "fixture", "extraction_cmd": "n/a", "open_questions": []}
+}
