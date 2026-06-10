@@ -1,0 +1,440 @@
+{
+  "schema_version": "1.0.0",
+  "module": {
+    "id": "bio_menstrual",
+    "title": "Menstrual Cycle Survey",
+    "survey_family": "biospecimens",
+    "source_file": "data/questionnaire/Biospecimens Survey - Menstrual Cycle.docx",
+    "naming_convention": "srv_versioned",
+    "id_prefixes": [
+      "SrvBlU_"
+    ],
+    "stated_question_count": 2,
+    "counted_question_count": 2,
+    "count_reconciliation": "Two '•' bullet markers appear in the source (line 6 for SrvBlU_MENS1_v1r0 and line 12 for SrvBlU_MENS2_v2r0), matching the stated count of 2. The two leading [SrvBlU_MENSINTRO_v2r0] / [SrvBlU_MENSINTRO2_v1r0] blocks are unbulleted display-text intros (informational consent/explanatory prose, not askable items) and the two END MESSAGE blocks are terminal nodes (survey-completion/exit screens), so neither category is counted as a question. counted_question_count (2) == stated_question_count (2) == number of kind:'question' items (2).",
+    "sections": [],
+    "external_variables": [
+      {
+        "name": "SrvBlU_MENSTART_v2r0",
+        "var_kind": "external",
+        "description": "Date of last menstrual period start, collected in the Biospecimens Clinical survey and piped into the MENSINTRO2 intro text here.",
+        "source_module": "bio_clinical"
+      },
+      {
+        "name": "Today date",
+        "var_kind": "system",
+        "description": "Current date at survey time; used as the upper bound and as the anchor for the lower relative-date bound of the SrvBlU_MENS2_v2r0 range check."
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "SrvBlU_MENSINTRO_v2r0",
+      "kind": "display_text",
+      "section": null,
+      "order_index": 0,
+      "bullet": false,
+      "text": "Hormones and other signals in the body change throughout the menstrual cycle. With information about the start date of your menstrual periods before and after you donated samples, we can pinpoint where you were in your menstrual cycle when you donated your samples.",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": null,
+      "display_condition": null,
+      "routing": {
+        "default_next": null,
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Menstrual Cycle.docx",
+        "line_start": 2,
+        "line_end": 2,
+        "raw_excerpt": "[SrvBlU_MENSINTRO_v2r0] Hormones and other signals in the body change throughout the menstrual cycle. With information about the start date of your menstrual periods before and after you donated samples, we can pinpoint where you were in your menstrual cycle when you donated your samples. "
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": []
+      }
+    },
+    {
+      "id": "SrvBlU_MENSINTRO2_v1r0",
+      "kind": "display_text",
+      "section": null,
+      "order_index": 1,
+      "bullet": false,
+      "text": "When you donated samples for the Connect for Cancer Prevention Study, you told us the date of your last menstrual period, which started on [insert SrvBlU_MENSTART_v2r0].\nToday, we are asking about your next menstrual period. We understand there are a number of reasons why you may not have had a menstrual period since your last cycle, including perimenopause and hormone and contraceptive use, among other reasons. If you have not had a menstrual period yet, please answer “no” to the following question. Your answers help us understand where you were in your cycle when you donated samples. This information is important because some markers in blood such as hormones change throughout the menstrual cycle.\nWe take your privacy seriously and protect your information according to federal security standards. We store your survey answers separately from your personal identifying information",
+      "piped_refs": [
+        {
+          "var": "SrvBlU_MENSTART_v2r0",
+          "var_kind": "external",
+          "raw": "[insert SrvBlU_MENSTART_v2r0]",
+          "source_module": "bio_clinical"
+        }
+      ],
+      "requires_response": false,
+      "response": null,
+      "display_condition": null,
+      "routing": {
+        "default_next": null,
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Menstrual Cycle.docx",
+        "line_start": 3,
+        "line_end": 5,
+        "raw_excerpt": "[SrvBlU_MENSINTRO2_v1r0] When you donated samples for the Connect for Cancer Prevention Study, you told us the date of your last menstrual period, which started on [insert SrvBlU_MENSTART_v2r0]. \nToday, we are asking about your next menstrual period. We understand there are a number of reasons why you may not have had a menstrual period since your last cycle, including perimenopause and hormone and contraceptive use, among other reasons. If you have not had a menstrual period yet, please answer “no” to the following question. Your answers help us understand where you were in your cycle when you donated samples. This information is important because some markers in blood such as hormones change throughout the menstrual cycle. \nWe take your privacy seriously and protect your information according to federal security standards. We store your survey answers separately from your personal identifying information "
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": []
+      }
+    },
+    {
+      "id": "SrvBlU_MENS1_v1r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 2,
+      "bullet": true,
+      "text": "Has your next menstrual period started?",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": {
+              "target": "END_MESSAGE_1",
+              "kind": "terminal",
+              "raw": "0\tNo --> GO TO END MESSAGE 1"
+            }
+          },
+          {
+            "code": "1",
+            "label": "Yes",
+            "flags": [],
+            "route": {
+              "target": "SrvBlU_MENS2_v2r0",
+              "kind": "goto",
+              "raw": "1\tYes --> GO TO SrvBlU_MENS2_v2r0"
+            }
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": null,
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Menstrual Cycle.docx",
+        "line_start": 6,
+        "line_end": 8,
+        "raw_excerpt": "\t•\t[SrvBlU_MENS1_v1r0] Has your next menstrual period started?  \n0\tNo --> GO TO END MESSAGE 1\n1\tYes --> GO TO SrvBlU_MENS2_v2r0"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": []
+      }
+    },
+    {
+      "id": "SrvBlU_MENS2_v2r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 3,
+      "bullet": true,
+      "text": "Please provide the first day that your next menstrual period started. This information helps researchers figure out where your body was in the menstrual cycle on the day you donated samples. If you do not remember the exact day, please make your best guess.\nIf you are using a phone or tablet, please tap the gray box to enter your response.",
+      "piped_refs": [],
+      "requires_response": true,
+      "response": {
+        "type": "date",
+        "range_check": {
+          "raw": "[RANGE CHECK: min= (Today date – 60 days), max= Today date]",
+          "min": {
+            "kind": "relative_date",
+            "expr": "today - 60d",
+            "raw": "(Today date – 60 days)"
+          },
+          "max": {
+            "kind": "system_var",
+            "var": "Today date"
+          },
+          "needs_review": true
+        }
+      },
+      "display_condition": {
+        "raw": "[DISPLAY IF SrvBlU_MENS1_v1r0= 1]",
+        "parsed": {
+          "op": "eq",
+          "var": "SrvBlU_MENS1_v1r0",
+          "value": 1
+        },
+        "confidence": "high",
+        "needs_review": false,
+        "interpretation_note": null,
+        "else_route": null
+      },
+      "routing": {
+        "default_next": "END_MESSAGE_2",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Menstrual Cycle.docx",
+        "line_start": 10,
+        "line_end": 17,
+        "raw_excerpt": "[DISPLAY IF SrvBlU_MENS1_v1r0= 1]\n[PROGRAMMING NOTE: QUESTION REQUIRES RESPONSE]\n\t•\t[SrvBlU_MENS2_v2r0] Please provide the first day that your next menstrual period started. This information helps researchers figure out where your body was in the menstrual cycle on the day you donated samples. If you do not remember the exact day, please make your best guess. \nIf you are using a phone or tablet, please tap the gray box to enter your response. \n \n_ _/_ _ /_ _ _ _  \t[RANGE CHECK: min= (Today date – 60 days), max= Today date]\nError message if someone clicks NEXT without entering a date: “Please use the calendar to select the date that your next menstrual period started.” \n--> GO TO END MESSAGE 2"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Programming note (source line 11), verbatim: [PROGRAMMING NOTE: QUESTION REQUIRES RESPONSE] — its logic is encoded structurally as requires_response=true.",
+          "Error message if someone clicks NEXT without entering a date: “Please use the calendar to select the date that your next menstrual period started.”",
+          "Response entry widget rendered in source as a date mask: '_ _/_ _ /_ _ _ _' (MM/DD/YYYY)."
+        ]
+      }
+    },
+    {
+      "id": "END_MESSAGE_1",
+      "kind": "terminal",
+      "section": null,
+      "order_index": 4,
+      "bullet": false,
+      "text": "END MESSAGE 1: “Thank you. When your next menstrual period starts, please return to complete this survey.”",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": null,
+      "display_condition": {
+        "raw": "[DISPLAY IF SrvBlU_MENS1_v1r0= 0]",
+        "parsed": {
+          "op": "eq",
+          "var": "SrvBlU_MENS1_v1r0",
+          "value": 0
+        },
+        "confidence": "high",
+        "needs_review": false,
+        "interpretation_note": null,
+        "else_route": null
+      },
+      "routing": {
+        "default_next": null,
+        "no_response_route": null,
+        "terminal": {
+          "type": "end_message",
+          "id": "1",
+          "message": "Thank you. When your next menstrual period starts, please return to complete this survey.",
+          "exit_behavior": "clear_cache",
+          "condition": null
+        }
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Menstrual Cycle.docx",
+        "line_start": 19,
+        "line_end": 20,
+        "raw_excerpt": "[DISPLAY IF SrvBlU_MENS1_v1r0= 0]\nEND MESSAGE 1: “Thank you. When your next menstrual period starts, please return to complete this survey.” [EXIT AND CLEAR CACHE]  "
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": []
+      }
+    },
+    {
+      "id": "END_MESSAGE_2",
+      "kind": "terminal",
+      "section": null,
+      "order_index": 5,
+      "bullet": false,
+      "text": "END MESSAGE 2: “You have answered all of the questions in this survey. To submit your answers, select the “Submit Survey” button.”",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": null,
+      "display_condition": {
+        "raw": "[DISPLAY IF RESPONSE ENTERED AT SrvBlU_MENS2_v1r0]",
+        "parsed": {
+          "op": "response_entered",
+          "var": "SrvBlU_MENS2_v2r0",
+          "resolved_from": "SrvBlU_MENS2_v1r0"
+        },
+        "confidence": "medium",
+        "needs_review": true,
+        "interpretation_note": "Version drift: the gate cites SrvBlU_MENS2_v1r0, but the only matching item in this module is the date question SrvBlU_MENS2_v2r0 (line 12); no _v1r0 item exists. Resolved the leaf var to the existing _v2r0 id and recorded the stale citation in resolved_from. Confidence medium because the resolution relies on the assumption that the directive intends the same MENS2 question despite the stale version suffix.",
+        "else_route": null
+      },
+      "routing": {
+        "default_next": null,
+        "no_response_route": null,
+        "terminal": {
+          "type": "end_message",
+          "id": "2",
+          "message": "You have answered all of the questions in this survey. To submit your answers, select the “Submit Survey” button.",
+          "exit_behavior": null,
+          "condition": null
+        }
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Menstrual Cycle.docx",
+        "line_start": 22,
+        "line_end": 23,
+        "raw_excerpt": "[DISPLAY IF RESPONSE ENTERED AT SrvBlU_MENS2_v1r0]  \nEND MESSAGE 2: “You have answered all of the questions in this survey. To submit your answers, select the “Submit Survey” button.” "
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": []
+      }
+    }
+  ],
+  "repeated_groups": [],
+  "grids": [],
+  "dependency_index": {
+    "SrvBlU_MENSINTRO2_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBlU_MENSTART_v2r0",
+          "edge_type": "pipe"
+        }
+      ],
+      "children": []
+    },
+    "SrvBlU_MENSTART_v2r0": {
+      "parents": [],
+      "children": [
+        {
+          "var": "SrvBlU_MENSINTRO2_v1r0",
+          "edge_type": "pipe"
+        }
+      ]
+    },
+    "END_MESSAGE_1": {
+      "parents": [
+        {
+          "var": "SrvBlU_MENS1_v1r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_MENS1_v1r0",
+          "edge_type": "display"
+        }
+      ],
+      "children": []
+    },
+    "SrvBlU_MENS1_v1r0": {
+      "parents": [],
+      "children": [
+        {
+          "var": "END_MESSAGE_1",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_MENS2_v2r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_MENS2_v2r0",
+          "edge_type": "display"
+        },
+        {
+          "var": "END_MESSAGE_1",
+          "edge_type": "display"
+        }
+      ]
+    },
+    "SrvBlU_MENS2_v2r0": {
+      "parents": [
+        {
+          "var": "SrvBlU_MENS1_v1r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_MENS1_v1r0",
+          "edge_type": "display"
+        }
+      ],
+      "children": [
+        {
+          "var": "END_MESSAGE_2",
+          "edge_type": "route"
+        },
+        {
+          "var": "END_MESSAGE_2",
+          "edge_type": "display"
+        }
+      ]
+    },
+    "END_MESSAGE_2": {
+      "parents": [
+        {
+          "var": "SrvBlU_MENS2_v2r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_MENS2_v2r0",
+          "edge_type": "display"
+        }
+      ],
+      "children": []
+    }
+  },
+  "build_meta": {
+    "built_by": "builder agent (Claude Opus 4.8 1M)",
+    "extraction_cmd": "bash tools/extract.sh bio_menstrual",
+    "open_questions": [
+      {
+        "item_id": "END_MESSAGE_2",
+        "line": 22,
+        "issue": "Version drift in display gate: [DISPLAY IF RESPONSE ENTERED AT SrvBlU_MENS2_v1r0] cites a stale version (_v1r0) of the date question, which actually exists as SrvBlU_MENS2_v2r0 (line 12). Leaf var resolved to the existing _v2r0 id with resolved_from='SrvBlU_MENS2_v1r0'; wrapper set to confidence=medium, needs_review=true.",
+        "confidence": "medium"
+      },
+      {
+        "item_id": "SrvBlU_MENS2_v2r0",
+        "line": 15,
+        "issue": "Relative-date range check: [RANGE CHECK: min= (Today date – 60 days), max= Today date]. min encoded as bound.kind=relative_date (expr 'today - 60d'), max as system_var 'Today date'; range_check.needs_review=true because the lower bound is a computed relative date anchored on the platform Today date.",
+        "confidence": "high"
+      },
+      {
+        "item_id": "SrvBlU_MENS2_v2r0",
+        "line": 16,
+        "issue": "Date-entry validation error string ('Please use the calendar to select the date that your next menstrual period started.') has no dedicated schema field; captured verbatim in flags.notes. The widget mask '_ _/_ _ /_ _ _ _' (line 15) indicates a MM/DD/YYYY date field, so response.type set to 'date'.",
+        "confidence": "high"
+      }
+    ]
+  }
+}

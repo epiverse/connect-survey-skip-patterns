@@ -4,6 +4,10 @@ Builder/verifier reference for serializing a Connect questionnaire module into J
 `PLAN.md` §§1–5 and is **aligned to `schema/connect_survey.schema.json`**. The master brief (`PLAN.md`)
 has the full narrative; this file is the day-to-day cheat-sheet.
 
+> **Schema status: FROZEN at v1.0.0** (locked by the `bio_menstrual` pilot, 2026-06). The modeling
+> conventions below — especially terminal/END MESSAGE handling (§3.10) — were validated by that pilot
+> and apply to all 11 modules. Treat the schema as stable; change it only with explicit owner sign-off.
+
 ## How to use this with the tooling
 1. **Extract** the source (read-only, line-numbered for provenance):
    `bash tools/extract.sh <module_id>` → pipes `textutil -convert txt -stdout "<file>" | cat -n`.
@@ -30,6 +34,10 @@ has the full narrative; this file is the day-to-day cheat-sheet.
 - **Bracketed directives** carry logic: `[DISPLAY … IF …]`, `[RANGE CHECK …]`, `[REPEAT …]`,
   `[THIS QUESTION … FOR EACH RESPONSE OPTION SELECTED AT …]`, `[insert …]`, `[GRID_…]`,
   `[NOTE … PROGRAMMERS …]`, `[END MESSAGE n]`, `[EXIT AND CLEAR CACHE]`.
+- **A directive immediately *preceding* a bulleted question** (its `[DISPLAY IF…]` gate,
+  `[PROGRAMMING NOTE…]`, etc.) belongs to **that question's block**: fold those lines into the question
+  item's `provenance` span, put the gate in its `display_condition`, and a "requires response" note
+  into `requires_response` (and verbatim in `flags.notes`, per §3.9).
 
 **Two naming conventions** (`module.naming_convention`): `short_uppercase` (Baseline M1–M4, e.g.
 `HOMEADD1_1_SRC`) and `srv_versioned` (`Srv<Code>_NAME_v#r#`). Use `mixed` for composed surveys that
@@ -61,10 +69,28 @@ options verbatim and set `response.scale.reverse_scored` (`true`/`false`/`"uncer
    overrides live on the row item's `response.scale`.
 7. **Piping / display dependencies** (`[insert X]`) → `item.piped_refs[]` (not a skip, but a BN edge).
 8. **Validation** (`[RANGE CHECK …]`) → `response.range_check` (structured `min`/`max` + verbatim `raw`).
-9. **Programmer notes** → keep verbatim in `item.flags.notes`; if a note carries logic (de-select,
-   iteration scope), encode it (e.g., `exclusive_codes`, a `repeated_group`).
-10. **Terminal nodes** (`GO TO END`, `END MESSAGE n`, `[EXIT AND CLEAR CACHE]`) → `routing.terminal`
-    (`type` ∈ end_module/end_message/exit); conditionally-gated ends carry `terminal.condition`.
+   A field's **validation error string** (e.g. "Error message if someone clicks NEXT…") has no schema
+   field → capture it **verbatim** in the item's `flags.notes`.
+9. **Programmer notes** (`[PROGRAMMING NOTE…]`/`[NOTE…]`) → **always** keep the verbatim text in
+   `item.flags.notes`, **and additionally** encode any logic into structured fields
+   (`requires_response` for "REQUIRES RESPONSE"; `exclusive_codes`+`is_exclusive` for "de-select all
+   others"; a `repeated_group` for iteration scope; etc.). Capture both the text and the logic.
+10. **Terminal nodes** (`GO TO END`, `END MESSAGE n`, `[EXIT AND CLEAR CACHE]`) — pilot-locked rules:
+    - An END MESSAGE / exit block becomes its **own `item`** with `kind:"terminal"`, `response:null`,
+      and `routing.terminal = {type` (end_module/end_message/exit)`, id, message` (verbatim, without the
+      "END MESSAGE n:" prefix)`, exit_behavior:"clear_cache"` iff `[EXIT AND CLEAR CACHE]`, else `null,
+      condition:null}`.
+    - Source END MESSAGE blocks carry **no bracket id → synthesize `END_MESSAGE_<n>`** (the `n` from the
+      source); an `[EXIT AND CLEAR CACHE]`-only terminal → synthesize a short descriptive id.
+    - **Routes to a terminal target the synthesized item id** (`route.target:"END_MESSAGE_1"`,
+      `route.kind:"terminal"`) with the verbatim arrow in `route.raw`; a question-level
+      `--> GO TO END MESSAGE n` → that item's `routing.default_next = "END_MESSAGE_<n>"`. *Targeting the
+      synthesized id (not the bare "END MESSAGE 1" label) is what makes the validator emit the route
+      dependency edge.*
+    - A terminal's `[DISPLAY IF…]` gate goes in the item's **`display_condition`**, NOT in
+      `routing.terminal.condition` (leave that `null`). *`build_dep_index` reads display edges from
+      `item`/`option.display_condition` only — a gate hidden in `terminal.condition` would silently drop
+      the edge.* Reserve `terminal.condition` for a gate that is genuinely not a `[DISPLAY IF]` directive.
 
 ## 4. Canonical expression-tree grammar (the heart)
 Every `display_condition`, `option.display_condition`, `grid.display_condition`, `terminal.condition`,
@@ -102,6 +128,8 @@ and `repeated_group.per_iteration_rules[]`/`instances[].gate` is a **condition w
 
 **Range-check bounds** (`response.range_check.min/max`): `kind` ∈ `const` (`value`), `var` (`var`),
 `system_var` (`var`), `relative_date` (`expr`,`raw`), `conditional` (`cases:[{when:<expr>,value:<bound>}], default:<bound>`). Set `needs_review:true` for relative/dependent/version-specific checks.
+For `relative_date`, `raw` is the **verbatim** bound text (e.g. `"(Today date – 60 days)"`) and `expr`
+is a **normalized** machine form (e.g. `"today - 60d"`).
 
 ## 5. Repeated groups, grids, composite fields
 - **Repeated group**: `{group_id, type, template_item_ids:[…], controller?, domain_source?, instances?}`.
