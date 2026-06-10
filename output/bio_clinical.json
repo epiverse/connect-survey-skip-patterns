@@ -1,0 +1,1644 @@
+{
+  "schema_version": "1.0.0",
+  "module": {
+    "id": "bio_clinical",
+    "title": "Baseline Blood and Urine Sample Survey",
+    "survey_family": "biospecimens",
+    "source_file": "data/questionnaire/Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+    "naming_convention": "mixed",
+    "id_prefixes": [
+      "SrvBio_",
+      "SrvBlU_",
+      "GRID_"
+    ],
+    "stated_question_count": 16,
+    "counted_question_count": 16,
+    "count_reconciliation": "Exactly 16 '•' bullet markers appear in the source (lines 4, 8, 16, 21, 24, 27, 30, 62, 66, 70, 73, 77, 81, 85, 91, 95), matching the stated count of 16, and equal to the 16 kind:'question' items emitted. Non-counted blocks: two unbulleted display_text intros (SrvBio_MODULEINTRO_v1r0 L2, SrvBlU_REPROINTRO_v1r0 L60), the unbulleted 'Medications' divider label (SrvBlU_MED_v1r0 L29), the three medication grid rows (SrvBlU_TYLENOL_v2r0, SrvBlU_NSAIDS_v2r0, SrvBlU_ACID_v1r0 — kind:'grid_row', not separate questions), and the synthesized end-of-survey terminal (CLOSING_REMARK L99). Note: the bulleted grid stem GRID_SRVBLU_MED1_V1R0 (L30) IS counted as one question. counted_question_count (16) == stated_question_count (16) == number of kind:'question' items (16).",
+    "response_code_legend": {
+      "88": "None of the above / not applicable (here, at SrvBio_SYMPTDAY_v1r0: 'No, I had none of these symptoms')"
+    },
+    "sections": [],
+    "external_variables": []
+  },
+  "items": [
+    {
+      "id": "SrvBio_MODULEINTRO_v1r0",
+      "kind": "display_text",
+      "section": null,
+      "order_index": 0,
+      "bullet": false,
+      "text": "Thank you for being part of Connect and for donating your samples. We have some questions about you and your health history. This information will help us better understand your health status, and how it is related to the samples that you donated. If you are not sure of an answer, please make your best guess.",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": null,
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBio_SEX_v2r1",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 2,
+        "line_end": 2,
+        "raw_excerpt": "[SrvBio_MODULEINTRO_v1r0] Thank you for being part of Connect and for donating your samples. We have some questions about you and your health history. This information will help us better understand your health status, and how it is related to the samples that you donated. If you are not sure of an answer, please make your best guess."
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": []
+      }
+    },
+    {
+      "id": "SrvBio_SEX_v2r1",
+      "kind": "question",
+      "section": null,
+      "order_index": 1,
+      "bullet": true,
+      "text": "Later questions in this survey will ask about your reproductive health, including your menstrual cycle (if you are menstruating) and your contraceptive use. We want to ask questions that make sense for you. What is your sex?",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "Female",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "Male",
+            "flags": [],
+            "route": null
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBio_SYMPTDAY_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 4,
+        "line_end": 6,
+        "raw_excerpt": "\t•\t [SrvBio_SEX_v2r1] Later questions in this survey will ask about your reproductive health, including your menstrual cycle (if you are menstruating) and your contraceptive use. We want to ask questions that make sense for you. What is your sex?\n0\tFemale\n1\tMale"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "This SrvBio_SEX_v2r1 response gates the Reproductive Health section: SrvBlU_REPROINTRO_v1r0 is displayed only IF SrvBio_SEX_v2r1=0, ELSE GO TO END (source lines 58-59)."
+        ]
+      }
+    },
+    {
+      "id": "SrvBio_SYMPTDAY_v1r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 2,
+      "bullet": true,
+      "text": "Did you have any of the following symptoms in the 24 hours before you donated your samples? Select all that apply.",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "multi_select",
+        "select_all": true,
+        "exclusive_codes": [],
+        "options": [
+          {
+            "code": "0",
+            "label": "[SrvBio_COUGHDAY_v1r0] Cough",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "[SrvBio_DIARRDAY_v1r0] Diarrhea",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "2",
+            "label": "[SrvBio_NOSEDAY_v1r0] Stuffy nose (also known as nasal congestion)",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "3",
+            "label": "[SrvBio_VOMITDAY_v1r0] Feeling sick to your stomach or throwing up",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "4",
+            "label": "[SrvBio_FEVERDAY_v1r0] Fever",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "88",
+            "label": "[SrvBio_NOSYMPTDAY_v1r0] No, I had none of these symptoms",
+            "flags": [
+              "is_none"
+            ],
+            "route": null
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBio_EATDRINKBEFORE_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 8,
+        "line_end": 14,
+        "raw_excerpt": "\t•\t[SrvBio_SYMPTDAY_v1r0] Did you have any of the following symptoms in the 24 hours before you donated your samples? Select all that apply. \n0\t[SrvBio_COUGHDAY_v1r0] Cough\n1\t[SrvBio_DIARRDAY_v1r0] Diarrhea \n2\t[SrvBio_NOSEDAY_v1r0] Stuffy nose (also known as nasal congestion) \n3\t[SrvBio_VOMITDAY_v1r0] Feeling sick to your stomach or throwing up\n4\t[SrvBio_FEVERDAY_v1r0] Fever\n88\t[SrvBio_NOSYMPTDAY_v1r0] No, I had none of these symptoms"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": "per_option_embedded_subvariable_ids",
+        "notes": [
+          "Each answer option in this select-all-that-apply question embeds its own bracketed sub-variable id, captured verbatim in option.label: 0=[SrvBio_COUGHDAY_v1r0], 1=[SrvBio_DIARRDAY_v1r0], 2=[SrvBio_NOSEDAY_v1r0], 3=[SrvBio_VOMITDAY_v1r0], 4=[SrvBio_FEVERDAY_v1r0], 88=[SrvBio_NOSYMPTDAY_v1r0]. These are per-checkbox binary indicator variables; the schema has no dedicated per-option variable-id field, so they are preserved (lossless) inside the verbatim label.",
+          "Option 88 ('No, I had none of these symptoms') is flagged is_none. The source carries NO explicit programmer 'de-select all other responses' rule for 88, so it is intentionally NOT added to response.exclusive_codes (no is_exclusive flag) to avoid inventing a rule; in practice it is logically mutually exclusive with codes 0-4."
+        ]
+      }
+    },
+    {
+      "id": "SrvBio_EATDRINKBEFORE_v1r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 3,
+      "bullet": true,
+      "text": "When did you last eat or drink anything other than water before donating your samples?",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "The same day",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "The day before",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "2",
+            "label": "More than a day before",
+            "flags": [],
+            "route": {
+              "target": "SrvBio_SLEEPTIME_v1r0",
+              "kind": "goto",
+              "raw": "2\tMore than a day before à GO TO SrvBio_SLEEPTIME_v1r0"
+            }
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBio_EATDRINKTIME_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 16,
+        "line_end": 19,
+        "raw_excerpt": "\t•\t[SrvBio_EATDRINKBEFORE_v1r0] When did you last eat or drink anything other than water before donating your samples?\n0\tThe same day\n1\tThe day before \n2\tMore than a day before à GO TO SrvBio_SLEEPTIME_v1r0 "
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Option 2 ('More than a day before') routes past SrvBio_EATDRINKTIME_v1r0 directly to SrvBio_SLEEPTIME_v1r0; options 0 and 1 fall through to SrvBio_EATDRINKTIME_v1r0 (default_next)."
+        ]
+      }
+    },
+    {
+      "id": "SrvBio_EATDRINKTIME_v1r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 4,
+      "bullet": true,
+      "text": "At about what time did you last eat or drink anything other than water before donating your samples? Select your answer from the drop-down list below. If you are using a phone or tablet, please tap the gray box to enter your response.",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "time"
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBio_SLEEPTIME_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 21,
+        "line_end": 22,
+        "raw_excerpt": "\t•\t[SrvBio_EATDRINKTIME_v1r0] At about what time did you last eat or drink anything other than water before donating your samples? Select your answer from the drop-down list below. If you are using a phone or tablet, please tap the gray box to enter your response.\nHH:MM AM/PM"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Time-of-day question; the source renders the response widget as 'HH:MM AM/PM' (drop-down), so response.type='time'.",
+          "This item has NO explicit [DISPLAY IF] gate. It is reached only when SrvBio_EATDRINKBEFORE_v1r0 is 0 or 1; if that question is answered 2 ('More than a day before'), its option route skips directly to SrvBio_SLEEPTIME_v1r0, bypassing this item. The dependency is therefore captured as a route edge from SrvBio_EATDRINKBEFORE_v1r0, and display_condition is left null (no source directive to parse)."
+        ]
+      }
+    },
+    {
+      "id": "SrvBio_SLEEPTIME_v1r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 5,
+      "bullet": true,
+      "text": "What time did you go to sleep on the night before donating your samples? Select your answer from the drop-down list below. If you are using a phone or tablet, please tap the gray box to enter your response.",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "time"
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBio_WAKETIME_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 24,
+        "line_end": 25,
+        "raw_excerpt": "\t•\t[SrvBio_SLEEPTIME_v1r0] What time did you go to sleep on the night before donating your samples? Select your answer from the drop-down list below. If you are using a phone or tablet, please tap the gray box to enter your response.\nHH:MM AM/PM"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Time-of-day question; source widget 'HH:MM AM/PM', so response.type='time'."
+        ]
+      }
+    },
+    {
+      "id": "SrvBio_WAKETIME_v1r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 6,
+      "bullet": true,
+      "text": "What time did you wake up on the day that you donated your samples? Select your answer from the drop-down list below. If you are using a phone or tablet, please tap the gray box to enter your response.",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "time"
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBlU_MED_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 27,
+        "line_end": 28,
+        "raw_excerpt": "\t•\t[SrvBio_WAKETIME_v1r0] What time did you wake up on the day that you donated your samples? Select your answer from the drop-down list below. If you are using a phone or tablet, please tap the gray box to enter your response.\nHH:MM AM/PM"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Time-of-day question; source widget 'HH:MM AM/PM', so response.type='time'."
+        ]
+      }
+    },
+    {
+      "id": "SrvBlU_MED_v1r0",
+      "kind": "display_text",
+      "section": null,
+      "order_index": 7,
+      "bullet": false,
+      "text": "Medications",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": null,
+      "display_condition": null,
+      "routing": {
+        "default_next": "GRID_SRVBLU_MED1_V1R0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 29,
+        "line_end": 29,
+        "raw_excerpt": "[SrvBlU_MED_v1r0] Medications "
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Unbulleted block id that acts as a one-word divider label ('Medications') introducing the medication grid; modeled as display_text (the source has no [SECTION n] marker)."
+        ]
+      }
+    },
+    {
+      "id": "GRID_SRVBLU_MED1_V1R0",
+      "kind": "question",
+      "section": null,
+      "order_index": 8,
+      "bullet": true,
+      "text": "Have you taken any of these medications in the past month? If so, please share the last time you took each type of medication before donating your samples. If you are not sure of an answer, please make your best guess.",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "Yes, in the past day",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "2",
+            "label": "Yes, in the past two days",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "3",
+            "label": "Yes, in the past week",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "4",
+            "label": "Yes, in the past month",
+            "flags": [],
+            "route": null
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBlU_REPROINTRO_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": "GRID_SRVBLU_MED1_V1R0",
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 30,
+        "line_end": 37,
+        "raw_excerpt": "\t•\t[GRID_SRVBLU_MED1_V1R0] Have you taken any of these medications in the past month? If so, please share the last time you took each type of medication before donating your samples. If you are not sure of an answer, please make your best guess.\n\n[Radio button grid, select one each row] \n0 No\n1 Yes, in the past day\n2 Yes, in the past two days\n3 Yes, in the past week\n4 Yes, in the past month"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Bulleted grid stem question for the explicit medication grid GRID_SRVBLU_MED1_V1R0 (see grids[]). Source directive '[Radio button grid, select one each row]' (line 32) means each row is single-select over the shared 5-point temporal scale (codes 0-4), all on one screen. The stem carries the shared scale as its response.options for reference; the actual answers are recorded per row item (SrvBlU_TYLENOL_v2r0, SrvBlU_NSAIDS_v2r0, SrvBlU_ACID_v1r0)."
+        ]
+      }
+    },
+    {
+      "id": "SrvBlU_TYLENOL_v2r0",
+      "kind": "grid_row",
+      "section": null,
+      "order_index": 9,
+      "bullet": false,
+      "text": "Tylenol® (acetaminophen)",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "Yes, in the past day",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "2",
+            "label": "Yes, in the past two days",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "3",
+            "label": "Yes, in the past week",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "4",
+            "label": "Yes, in the past month",
+            "flags": [],
+            "route": null
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": null,
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": "GRID_SRVBLU_MED1_V1R0",
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 38,
+        "line_end": 43,
+        "raw_excerpt": "[SrvBlU_TYLENOL_v2r0] Tylenol® (acetaminophen)"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Medication row of GRID_SRVBLU_MED1_V1R0; single-select over the shared 5-point temporal scale. The blank source lines following the row label are the empty radio-button cells in the text extraction."
+        ]
+      }
+    },
+    {
+      "id": "SrvBlU_NSAIDS_v2r0",
+      "kind": "grid_row",
+      "section": null,
+      "order_index": 10,
+      "bullet": false,
+      "text": "NSAIDs [such as aspirin, Advil® (ibuprofen), Aleve® (naproxen)]",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "Yes, in the past day",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "2",
+            "label": "Yes, in the past two days",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "3",
+            "label": "Yes, in the past week",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "4",
+            "label": "Yes, in the past month",
+            "flags": [],
+            "route": null
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": null,
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": "GRID_SRVBLU_MED1_V1R0",
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 44,
+        "line_end": 49,
+        "raw_excerpt": "[SrvBlU_NSAIDS_v2r0] NSAIDs [such as aspirin, Advil® (ibuprofen), Aleve® (naproxen)]"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Medication row of GRID_SRVBLU_MED1_V1R0; single-select over the shared 5-point temporal scale. The medication-example list is itself in square brackets in the source; this is parenthetical label text, not a programming directive."
+        ]
+      }
+    },
+    {
+      "id": "SrvBlU_ACID_v1r0",
+      "kind": "grid_row",
+      "section": null,
+      "order_index": 11,
+      "bullet": false,
+      "text": "Medications to lower stomach acid [such as Prilosec®, Prevacid®, Protonix®, Aciphex®, Omeprazole, Nexium®, Tagamet®, Zantac®]",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "Yes, in the past day",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "2",
+            "label": "Yes, in the past two days",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "3",
+            "label": "Yes, in the past week",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "4",
+            "label": "Yes, in the past month",
+            "flags": [],
+            "route": null
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": null,
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": "GRID_SRVBLU_MED1_V1R0",
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 50,
+        "line_end": 57,
+        "raw_excerpt": "[SrvBlU_ACID_v1r0] Medications to lower stomach acid [such as Prilosec®, Prevacid®, Protonix®, Aciphex®, Omeprazole, Nexium®, Tagamet®, Zantac®]"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Medication row of GRID_SRVBLU_MED1_V1R0; single-select over the shared 5-point temporal scale. Third and final medication row (the grid has exactly three rows in the source)."
+        ]
+      }
+    },
+    {
+      "id": "SrvBlU_REPROINTRO_v1r0",
+      "kind": "display_text",
+      "section": null,
+      "order_index": 12,
+      "bullet": false,
+      "text": "Reproductive Health\nThe following questions ask about your menstrual periods, if you are pregnant, and contraceptive use. Your answers will help us understand where your body was in your menstrual cycle when you donated your samples. You may have answered some questions like these on another survey, but the questions below ask about your status on the day that you donated your samples.",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": null,
+      "display_condition": {
+        "raw": "[DISPLAY SrvBlU_REPROINTRO_v1r0 IF (SrvBio_SEX_v2r1= 0),\nELSE, GO TO END]",
+        "parsed": {
+          "op": "eq",
+          "var": "SrvBio_SEX_v2r1",
+          "value": 0
+        },
+        "confidence": "high",
+        "needs_review": false,
+        "interpretation_note": null,
+        "else_route": {
+          "target": "END",
+          "kind": "terminal",
+          "raw": "ELSE, GO TO END"
+        }
+      },
+      "routing": {
+        "default_next": "SrvBlU_MENSTPRD_v2r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 58,
+        "line_end": 61,
+        "raw_excerpt": "[DISPLAY SrvBlU_REPROINTRO_v1r0 IF (SrvBio_SEX_v2r1= 0),\nELSE, GO TO END]\n[SrvBlU_REPROINTRO_v1r0] Reproductive Health\nThe following questions ask about your menstrual periods, if you are pregnant, and contraceptive use. Your answers will help us understand where your body was in your menstrual cycle when you donated your samples. You may have answered some questions like these on another survey, but the questions below ask about your status on the day that you donated your samples."
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Section intro for the Reproductive Health questions, gated on sex. When SrvBio_SEX_v2r1 != 0 (i.e., Male), the else_route ends the survey (GO TO END), skipping all remaining reproductive-health items through SrvBlU_HORMONE_v1r0."
+        ]
+      }
+    },
+    {
+      "id": "SrvBlU_MENSTPRD_v2r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 13,
+      "bullet": true,
+      "text": "Have you had a menstrual period in the last 12 months? Please do not consider breakthrough bleeding (also known as spotting) as part of the menstrual period.",
+      "piped_refs": [],
+      "requires_response": true,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": {
+              "target": "SrvBlU_PREGNANT_v1r0",
+              "kind": "goto",
+              "raw": "0\tNo à GO TO SrvBlU_PREGNANT_v1r0"
+            }
+          },
+          {
+            "code": "1",
+            "label": "Yes",
+            "flags": [],
+            "route": null
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBlU_MENST60_v2r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 62,
+        "line_end": 64,
+        "raw_excerpt": "\t•\t[SrvBlU_MENSTPRD_v2r0] Have you had a menstrual period in the last 12 months? Please do not consider breakthrough bleeding (also known as spotting) as part of the menstrual period. [this question requires a response]\n0\tNo à GO TO SrvBlU_PREGNANT_v1r0 \n1\tYes"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Inline directive '[this question requires a response]' (source line 62) encoded structurally as requires_response=true; stripped from the verbatim question text.",
+          "Option 0 ('No') routes to SrvBlU_PREGNANT_v1r0, skipping SrvBlU_MENST60_v2r0 and SrvBlU_MENSTART_v2r0; option 1 ('Yes') falls through to SrvBlU_MENST60_v2r0."
+        ]
+      }
+    },
+    {
+      "id": "SrvBlU_MENST60_v2r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 14,
+      "bullet": true,
+      "text": "Have you had a menstrual period in the last 60 days? Please do not consider breakthrough bleeding (also known as spotting) as part of the menstrual period.",
+      "piped_refs": [],
+      "requires_response": true,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": {
+              "target": "SrvBlU_PREGNANT_v1r0",
+              "kind": "goto",
+              "raw": "0\tNo à GO TO SrvBlU_PREGNANT_v1r0"
+            }
+          },
+          {
+            "code": "1",
+            "label": "Yes",
+            "flags": [],
+            "route": null
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBlU_MENSTART_v2r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 66,
+        "line_end": 68,
+        "raw_excerpt": "\t•\t[SrvBlU_MENST60_v2r0] Have you had a menstrual period in the last 60 days? Please do not consider breakthrough bleeding (also known as spotting) as part of the menstrual period. [this question requires a response]\n0\tNo à GO TO SrvBlU_PREGNANT_v1r0\n1\tYes"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Inline directive '[this question requires a response]' (source line 66) encoded as requires_response=true; stripped from the verbatim question text.",
+          "Option 0 ('No') routes to SrvBlU_PREGNANT_v1r0, skipping SrvBlU_MENSTART_v2r0; option 1 ('Yes') falls through to SrvBlU_MENSTART_v2r0."
+        ]
+      }
+    },
+    {
+      "id": "SrvBlU_MENSTART_v2r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 15,
+      "bullet": true,
+      "text": "When was the start date of your most recent menstrual period (the first day on which you saw menstrual blood)? Please do not consider breakthrough bleeding (also known as spotting) as part of the menstrual period. If you are not sure or do not remember, please make your best guess.",
+      "piped_refs": [],
+      "requires_response": true,
+      "response": {
+        "type": "date"
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBlU_PREGNANT_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 70,
+        "line_end": 71,
+        "raw_excerpt": "\t•\t[SrvBlU_MENSTART_v2r0] When was the start date of your most recent menstrual period (the first day on which you saw menstrual blood)? Please do not consider breakthrough bleeding (also known as spotting) as part of the menstrual period. If you are not sure or do not remember, please make your best guess. [this question requires a response]\nMM/DD/YYYY "
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Inline directive '[this question requires a response]' (source line 70) encoded as requires_response=true; stripped from the verbatim question text.",
+          "Date question; source widget 'MM/DD/YYYY', so response.type='date'.",
+          "This item defines SrvBlU_MENSTART_v2r0, the start-date variable that is piped into the bio_menstrual module ([insert SrvBlU_MENSTART_v2r0]); within this module it is an ordinary internal date question."
+        ]
+      }
+    },
+    {
+      "id": "SrvBlU_PREGNANT_v1r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 16,
+      "bullet": true,
+      "text": "Are you pregnant now?",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "Yes",
+            "flags": [],
+            "route": {
+              "target": "SrvBlU_BRSTFD_v1r0",
+              "kind": "goto",
+              "raw": "1\tYes à GO TO SrvBlU_BRSTFD_v1r0"
+            }
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBlU_PREG3MON_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 73,
+        "line_end": 75,
+        "raw_excerpt": "\t•\t[SrvBlU_PREGNANT_v1r0] Are you pregnant now?\n0\tNo \n1\tYes à GO TO SrvBlU_BRSTFD_v1r0 "
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "This SrvBlU_PREGNANT_v1r0 response gates SrvBlU_CONTRACEPT_v1r0 (displayed only IF SrvBlU_PREGNANT_v1r0=0, ELSE GO TO END; source lines 89-90).",
+          "Option 1 ('Yes') routes to SrvBlU_BRSTFD_v1r0, skipping SrvBlU_PREG3MON_v1r0; option 0 ('No') falls through to SrvBlU_PREG3MON_v1r0."
+        ]
+      }
+    },
+    {
+      "id": "SrvBlU_PREG3MON_v1r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 17,
+      "bullet": true,
+      "text": "Have you been pregnant in the last three months?",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "Yes",
+            "flags": [],
+            "route": null
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBlU_BRSTFD_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 77,
+        "line_end": 79,
+        "raw_excerpt": "\t•\t[SrvBlU_PREG3MON_v1r0] Have you been pregnant in the last three months?\n0\tNo\n1\tYes "
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": []
+      }
+    },
+    {
+      "id": "SrvBlU_BRSTFD_v1r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 18,
+      "bullet": true,
+      "text": "Are you breastfeeding now?",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "Yes",
+            "flags": [],
+            "route": {
+              "target": "SrvBlU_CONTRACEPT_v1r0",
+              "kind": "goto",
+              "raw": "1\tYes à GO TO SrvBlU_CONTRACEPT_v1r0"
+            }
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBlU_BRSTFD3MON_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 81,
+        "line_end": 83,
+        "raw_excerpt": "\t•\t[SrvBlU_BRSTFD_v1r0] Are you breastfeeding now?\n0\tNo \n1\tYes à GO TO SrvBlU_CONTRACEPT_v1r0"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "Option 1 ('Yes') routes to SrvBlU_CONTRACEPT_v1r0, skipping SrvBlU_BRSTFD3MON_v1r0; option 0 ('No') falls through to SrvBlU_BRSTFD3MON_v1r0."
+        ]
+      }
+    },
+    {
+      "id": "SrvBlU_BRSTFD3MON_v1r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 19,
+      "bullet": true,
+      "text": "Did you breastfeed in the last three months?",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "Yes",
+            "flags": [],
+            "route": null
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "SrvBlU_CONTRACEPT_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 85,
+        "line_end": 87,
+        "raw_excerpt": "\t•\t[SrvBlU_BRSTFD3MON_v1r0] Did you breastfeed in the last three months? \n0\tNo\n1\tYes  "
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": []
+      }
+    },
+    {
+      "id": "SrvBlU_CONTRACEPT_v1r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 20,
+      "bullet": true,
+      "text": "Within the last month, have you used hormonal contraceptives? These types of contraceptives include oral contraceptives (“the pill”), injections, implants, skin patches, vaginal rings, and hormonal intrauterine devices (IUDs).",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "Yes",
+            "flags": [],
+            "route": null
+          }
+        ]
+      },
+      "display_condition": {
+        "raw": "[DISPLAY SrvBlU_CONTRACEPT_v1r0 IF (SrvBlU_PREGNANT_v1r0= 0),\nELSE, GO TO END]",
+        "parsed": {
+          "op": "eq",
+          "var": "SrvBlU_PREGNANT_v1r0",
+          "value": 0
+        },
+        "confidence": "high",
+        "needs_review": false,
+        "interpretation_note": null,
+        "else_route": {
+          "target": "END",
+          "kind": "terminal",
+          "raw": "ELSE, GO TO END"
+        }
+      },
+      "routing": {
+        "default_next": "SrvBlU_HORMONE_v1r0",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 89,
+        "line_end": 93,
+        "raw_excerpt": "[DISPLAY SrvBlU_CONTRACEPT_v1r0 IF (SrvBlU_PREGNANT_v1r0= 0),\nELSE, GO TO END] \n\t•\t[SrvBlU_CONTRACEPT_v1r0] Within the last month, have you used hormonal contraceptives? These types of contraceptives include oral contraceptives (“the pill”), injections, implants, skin patches, vaginal rings, and hormonal intrauterine devices (IUDs).\n\t•\tNo\n\t•\tYes"
+      },
+      "flags": {
+        "needs_review": true,
+        "schema_breaker": "answer_options_without_codes",
+        "notes": [
+          "SCHEMA-BREAKER: the two answer options for this question render in the source as sub-bullets ('\\t•\\tNo' line 92, '\\t•\\tYes' line 93) with NO numeric codes. Every other yes/no item in this module codes No=0, Yes=1; codes here are INFERRED as 0=No, 1=Yes from that module-wide pattern. Source codes are absent — not silently 'fixed'; flagged needs_review=true and recorded in build_meta.open_questions.",
+          "Display gate (source lines 89-90): shown only IF SrvBlU_PREGNANT_v1r0=0; otherwise else_route ends the survey (GO TO END). Note that SrvBlU_BRSTFD_v1r0=1 ('Yes') also routes directly here, so a respondent can reach this item via that route as well as by fall-through."
+        ]
+      }
+    },
+    {
+      "id": "SrvBlU_HORMONE_v1r0",
+      "kind": "question",
+      "section": null,
+      "order_index": 21,
+      "bullet": true,
+      "text": "Within the last month, have you used prescription hormone therapy to relieve common symptoms of perimenopause and menopause (for example, hot flashes and vaginal dryness), or to reduce bone loss due to lowering levels of estrogen and progesterone?",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": {
+        "type": "single_select",
+        "options": [
+          {
+            "code": "0",
+            "label": "No",
+            "flags": [],
+            "route": null
+          },
+          {
+            "code": "1",
+            "label": "Yes",
+            "flags": [],
+            "route": null
+          }
+        ]
+      },
+      "display_condition": null,
+      "routing": {
+        "default_next": "CLOSING_REMARK",
+        "no_response_route": null,
+        "terminal": null
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 95,
+        "line_end": 97,
+        "raw_excerpt": "\t•\t[SrvBlU_HORMONE_v1r0] Within the last month, have you used prescription hormone therapy to relieve common symptoms of perimenopause and menopause (for example, hot flashes and vaginal dryness), or to reduce bone loss due to lowering levels of estrogen and progesterone? \n\t•\tNo \n\t•\tYes"
+      },
+      "flags": {
+        "needs_review": true,
+        "schema_breaker": "answer_options_without_codes",
+        "notes": [
+          "SCHEMA-BREAKER: the two answer options render in the source as sub-bullets ('\\t•\\tNo' line 96, '\\t•\\tYes' line 97) with NO numeric codes. Codes INFERRED as 0=No, 1=Yes from the module-wide yes/no coding pattern. Source codes are absent — flagged needs_review=true and recorded in build_meta.open_questions.",
+          "Final question of the module; falls through to the end-of-survey closing/submit screen (CLOSING_REMARK)."
+        ]
+      }
+    },
+    {
+      "id": "CLOSING_REMARK",
+      "kind": "terminal",
+      "section": null,
+      "order_index": 22,
+      "bullet": false,
+      "text": "Closing remark on submit survey screen: “You have answered all of the questions in this survey. To submit your answers, select the “Submit Survey” button.”",
+      "piped_refs": [],
+      "requires_response": false,
+      "response": null,
+      "display_condition": null,
+      "routing": {
+        "default_next": null,
+        "no_response_route": null,
+        "terminal": {
+          "type": "end_module",
+          "id": null,
+          "message": "You have answered all of the questions in this survey. To submit your answers, select the “Submit Survey” button.",
+          "exit_behavior": null,
+          "condition": null
+        }
+      },
+      "membership": {
+        "repeated_group": null,
+        "grid": null,
+        "iteration_role": null
+      },
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 99,
+        "line_end": 99,
+        "raw_excerpt": "Closing remark on submit survey screen: “You have answered all of the questions in this survey. To submit your answers, select the “Submit Survey” button.”"
+      },
+      "flags": {
+        "needs_review": false,
+        "schema_breaker": null,
+        "notes": [
+          "End-of-survey submit screen. The source block has no bracket id and is not labeled 'END MESSAGE n', so a descriptive id 'CLOSING_REMARK' is synthesized (per CONVENTIONS §3.10). Modeled as terminal type 'end_module'; no [EXIT AND CLEAR CACHE] directive present, so exit_behavior is null. The 'GO TO END' else_routes on the two display gates target the recognized 'END' terminal token rather than this item."
+        ]
+      }
+    }
+  ],
+  "repeated_groups": [],
+  "grids": [
+    {
+      "grid_id": "GRID_SRVBLU_MED1_V1R0",
+      "explicit_id": true,
+      "stem": "Have you taken any of these medications in the past month? If so, please share the last time you took each type of medication before donating your samples. If you are not sure of an answer, please make your best guess.",
+      "shared_scale": [
+        {
+          "code": "0",
+          "label": "No"
+        },
+        {
+          "code": "1",
+          "label": "Yes, in the past day"
+        },
+        {
+          "code": "2",
+          "label": "Yes, in the past two days"
+        },
+        {
+          "code": "3",
+          "label": "Yes, in the past week"
+        },
+        {
+          "code": "4",
+          "label": "Yes, in the past month"
+        }
+      ],
+      "row_item_ids": [
+        "SrvBlU_TYLENOL_v2r0",
+        "SrvBlU_NSAIDS_v2r0",
+        "SrvBlU_ACID_v1r0"
+      ],
+      "same_screen": true,
+      "display_condition": null,
+      "provenance": {
+        "file": "Biospecimens Survey - Clinical Collection (Blood & Urine).docx",
+        "line_start": 30,
+        "line_end": 57,
+        "raw_excerpt": "\t•\t[GRID_SRVBLU_MED1_V1R0] Have you taken any of these medications in the past month? If so, please share the last time you took each type of medication before donating your samples. If you are not sure of an answer, please make your best guess.\n\n[Radio button grid, select one each row] \n0 No\n1 Yes, in the past day\n2 Yes, in the past two days\n3 Yes, in the past week\n4 Yes, in the past month\n[SrvBlU_TYLENOL_v2r0] Tylenol® (acetaminophen)\n[SrvBlU_NSAIDS_v2r0] NSAIDs [such as aspirin, Advil® (ibuprofen), Aleve® (naproxen)]\n[SrvBlU_ACID_v1r0] Medications to lower stomach acid [such as Prilosec®, Prevacid®, Protonix®, Aciphex®, Omeprazole, Nexium®, Tagamet®, Zantac®]"
+      }
+    }
+  ],
+  "dependency_index": {
+    "SrvBio_SEX_v2r1": {
+      "parents": [
+        {
+          "var": "SrvBio_MODULEINTRO_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBio_SYMPTDAY_v1r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_REPROINTRO_v1r0",
+          "edge_type": "display"
+        }
+      ]
+    },
+    "SrvBio_MODULEINTRO_v1r0": {
+      "parents": [],
+      "children": [
+        {
+          "var": "SrvBio_SEX_v2r1",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBio_SYMPTDAY_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBio_SEX_v2r1",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBio_EATDRINKBEFORE_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBio_EATDRINKBEFORE_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBio_SYMPTDAY_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBio_EATDRINKTIME_v1r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBio_SLEEPTIME_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBio_EATDRINKTIME_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBio_EATDRINKBEFORE_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBio_SLEEPTIME_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBio_SLEEPTIME_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBio_EATDRINKBEFORE_v1r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBio_EATDRINKTIME_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBio_WAKETIME_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBio_WAKETIME_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBio_SLEEPTIME_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBlU_MED_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBlU_MED_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBio_WAKETIME_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "GRID_SRVBLU_MED1_V1R0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "GRID_SRVBLU_MED1_V1R0": {
+      "parents": [
+        {
+          "var": "SrvBlU_MED_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBlU_REPROINTRO_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBlU_REPROINTRO_v1r0": {
+      "parents": [
+        {
+          "var": "GRID_SRVBLU_MED1_V1R0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBio_SEX_v2r1",
+          "edge_type": "display"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBlU_MENSTPRD_v2r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBlU_MENSTPRD_v2r0": {
+      "parents": [
+        {
+          "var": "SrvBlU_REPROINTRO_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBlU_MENST60_v2r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_PREGNANT_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBlU_MENST60_v2r0": {
+      "parents": [
+        {
+          "var": "SrvBlU_MENSTPRD_v2r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBlU_MENSTART_v2r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_PREGNANT_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBlU_PREGNANT_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBlU_MENSTPRD_v2r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_MENST60_v2r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_MENSTART_v2r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBlU_PREG3MON_v1r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_BRSTFD_v1r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_CONTRACEPT_v1r0",
+          "edge_type": "display"
+        }
+      ]
+    },
+    "SrvBlU_MENSTART_v2r0": {
+      "parents": [
+        {
+          "var": "SrvBlU_MENST60_v2r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBlU_PREGNANT_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBlU_PREG3MON_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBlU_PREGNANT_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBlU_BRSTFD_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBlU_BRSTFD_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBlU_PREGNANT_v1r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_PREG3MON_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBlU_BRSTFD3MON_v1r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_CONTRACEPT_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBlU_BRSTFD3MON_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBlU_BRSTFD_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBlU_CONTRACEPT_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBlU_CONTRACEPT_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBlU_BRSTFD_v1r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_BRSTFD3MON_v1r0",
+          "edge_type": "route"
+        },
+        {
+          "var": "SrvBlU_PREGNANT_v1r0",
+          "edge_type": "display"
+        }
+      ],
+      "children": [
+        {
+          "var": "SrvBlU_HORMONE_v1r0",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "SrvBlU_HORMONE_v1r0": {
+      "parents": [
+        {
+          "var": "SrvBlU_CONTRACEPT_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": [
+        {
+          "var": "CLOSING_REMARK",
+          "edge_type": "route"
+        }
+      ]
+    },
+    "CLOSING_REMARK": {
+      "parents": [
+        {
+          "var": "SrvBlU_HORMONE_v1r0",
+          "edge_type": "route"
+        }
+      ],
+      "children": []
+    }
+  },
+  "build_meta": {
+    "built_by": "builder agent (Claude Opus 4.8 1M)",
+    "extraction_cmd": "bash tools/extract.sh bio_clinical",
+    "open_questions": [
+      {
+        "item_id": "SrvBlU_CONTRACEPT_v1r0",
+        "line": 92,
+        "issue": "Answer options have no numeric codes in source: they render as sub-bullets '\\t•\\tNo' (line 92) and '\\t•\\tYes' (line 93). Codes inferred 0=No, 1=Yes from the module-wide yes/no coding pattern; item flagged needs_review=true. SME to confirm the intended codes.",
+        "confidence": "medium"
+      },
+      {
+        "item_id": "SrvBlU_HORMONE_v1r0",
+        "line": 96,
+        "issue": "Answer options have no numeric codes in source: they render as sub-bullets '\\t•\\tNo' (line 96) and '\\t•\\tYes' (line 97). Codes inferred 0=No, 1=Yes from the module-wide yes/no coding pattern; item flagged needs_review=true. SME to confirm the intended codes.",
+        "confidence": "medium"
+      },
+      {
+        "item_id": "SrvBio_SYMPTDAY_v1r0",
+        "line": 9,
+        "issue": "Each select-all option embeds its own bracketed sub-variable id ([SrvBio_COUGHDAY_v1r0] Cough, [SrvBio_DIARRDAY_v1r0] Diarrhea, [SrvBio_NOSEDAY_v1r0] Stuffy nose, [SrvBio_VOMITDAY_v1r0] feeling sick, [SrvBio_FEVERDAY_v1r0] Fever, [SrvBio_NOSYMPTDAY_v1r0] none). The schema has no per-option variable-id field, so each id is preserved verbatim inside option.label. Downstream consumers that need these as addressable binary indicator variables should split them out of the label.",
+        "confidence": "high"
+      },
+      {
+        "item_id": "SrvBio_SYMPTDAY_v1r0",
+        "line": 14,
+        "issue": "Code 88 ('No, I had none of these symptoms') is conventionally exclusive in a select-all question, but the source carries no explicit 'de-select all other responses' programmer rule. Flagged is_none only; intentionally NOT added to response.exclusive_codes to avoid inventing a rule. SME to confirm whether 88 should de-select codes 0-4.",
+        "confidence": "high"
+      }
+    ]
+  }
+}
